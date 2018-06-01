@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Halo</string>
     <string name="btn_login_text"> Login</string>
+    <string name="btn_register_text"> Register</string>
+    <string name="title_login">Login</string>
+    <string name="title_register">Register</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_displayname">Display name</string>
+    <string name="hint_emailaddress">Email address</string>
+    <string name="hint_confirmpass">Confirm password</string>
+    <string name="hint_login">Using Username to login</string>
+    <string name="hint_register">Input your information to create account</string>
+    <string name="forget_password">Forgot your password?</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="birthdaytitle">Select your Date of Birth</string>
+    <string name="locale_lang">en-us</string>
+
 </resources>
