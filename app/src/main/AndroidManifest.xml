@@ -3,31 +3,39 @@
     package="com.deadk.halo">
 
     <application
-        android:configChanges="locale"
         android:allowBackup="true"
+        android:configChanges="locale"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.MainActivity"
+            android:theme="@style/noAnimTheme">
+        </activity>
+        <activity
+            android:name=".activities.LoginActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.ForgetPassword"
+            android:parentActivityName=".activities.LoginActivity" />
+        <activity android:name=".activities.MainScreen" />
+        <activity android:name=".activities.VerifyEmail" />
+        <activity android:name=".activities.SplashScreen" android:theme="@style/noAnimTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+    </application>
 
-        <activity
-            android:name=".activities.LoginActivity"
-            android:parentActivityName=".activities.MainActivity"></activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
-        <activity android:name=".activities.RegisterActivity"
-            android:parentActivityName=".activities.MainActivity"></activity>
-
-</application>
 </manifest>

@@ -14,7 +14,7 @@
         layout="@layout/app_bar"></include> -->
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/img_logo"
         android:layout_width="183dp"
         android:layout_height="181dp"
         android:layout_marginBottom="8dp"
@@ -75,7 +75,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginStart="64dp"
         android:text="English"
-        android:textColor="@color/general"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle=""
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,6 +100,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
+
+   <ProgressBar
+       android:id="@+id/prg_loading"
+       style="?android:attr/progressBarStyleHorizontal"
+       android:layout_width="160dp"
+       android:layout_height="5dp"
+       android:layout_marginEnd="8dp"
+       android:layout_marginStart="8dp"
+       android:layout_marginTop="70dp"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 
 </android.support.constraint.ConstraintLayout>
