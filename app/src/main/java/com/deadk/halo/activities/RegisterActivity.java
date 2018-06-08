@@ -128,10 +128,12 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            User newUser = new User(username,displayname,emailAddress,phoneNo,dateOfBirth,gender);
+
 
                             Log.d("deadk", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            User newUser = new User(user.getUid(),username,displayname,emailAddress,phoneNo,dateOfBirth,gender);
 
                             DatabaseReference usersRef = database.getReference("users");
                             usersRef.child(user.getUid().toString()).setValue(newUser);

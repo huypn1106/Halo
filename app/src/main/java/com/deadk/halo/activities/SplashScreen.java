@@ -3,6 +3,7 @@ package com.deadk.halo.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,6 +51,23 @@ public class SplashScreen extends AppCompatActivity {
                 getResources().getColor(R.color.general), android.graphics.PorterDuff.Mode.SRC_IN);
 
         loadingProgress.execute();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                    Intent mainIntent = new Intent(SplashScreen.this,MainScreen.class);
+                    startActivity(mainIntent);
+                }
+                else{
+                    Intent startupIntent = new Intent(SplashScreen.this,MainActivity.class);
+                    startActivity(startupIntent);
+                }
+            }
+        }, 300);
+
     }
 
 
@@ -57,10 +75,18 @@ public class SplashScreen extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             for (int i = 0; i <= 100; i++) {
-                SystemClock.sleep(20);
+                SystemClock.sleep(10);
+
+                if(i==70){
+
+                }
                 //khi gọi hàm này thì onProgressUpdate sẽ thực thi
                 publishProgress(i);
             }
+
+
+
+
             return null;
         }
 
@@ -77,15 +103,15 @@ public class SplashScreen extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            progressBar.setVisibility(View.GONE);
-            if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-                Intent mainIntent = new Intent(SplashScreen.this,MainScreen.class);
-                startActivity(mainIntent);
-            }
-            else{
-                Intent startupIntent = new Intent(SplashScreen.this,MainActivity.class);
-                startActivity(startupIntent);
-            }
+//            progressBar.setVisibility(View.GONE);
+//            if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+//                Intent mainIntent = new Intent(SplashScreen.this,MainScreen.class);
+//                startActivity(mainIntent);
+//            }
+//            else{
+//                Intent startupIntent = new Intent(SplashScreen.this,MainActivity.class);
+//                startActivity(startupIntent);
+//            }
 
             finish();
         }

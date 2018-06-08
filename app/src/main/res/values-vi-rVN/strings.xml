@@ -6,11 +6,14 @@
     <string name="title_login">Đăng nhập</string>
     <string name="title_register">Đăng ký</string>
     <string name="title_forgetpass">Quên mật khẩu</string>
+    <string name="title_update_profile">Cập nhật</string>
     <string name="hint_username">Tên tài khoản</string>
     <string name="hint_password">Mật khẩu</string>
     <string name="hint_displayname">Tên hiển thị</string>
     <string name="hint_emailaddress">Địa chỉ email</string>
     <string name="hint_confirmpass">Nhập lại mật khẩu</string>
+    <string name="hint_dob">Ngày sinh</string>
+    <string name="hint_gender">Giới tính</string>
     <string name="hint_login">Sử dụng tên tài khoản để đăng nhập</string>
     <string name="hint_phoneno">Số điện thoại</string>
     <string name="hint_register">Nhập thông tin của bạn để tạo tài khoản</string>
@@ -22,6 +25,7 @@
     <string name="hint_forgetpass">Nhập địa chỉ Email của bạn để phục hồi mật khẩu</string>
     <string name="btn_verify">Xác nhận</string>
     <string name="btn_recover">Khôi phục</string>
+    <string name="btn_update_profile">Cập nhật</string>
     <string name="register_email_exist">Email này đã được đăng ký bởi tài khoản khác</string>
     <string name="register_email_incorrect">Email không đúng định dạng</string>
     <string name="register_password_week">Hãy chọn một mật khẩu mạnh hơn</string>
@@ -29,6 +33,7 @@
     <string name="register_password_not_match">Nhập lại mật khẩu không khớp</string>
     <string name="register_username_exist">Tên tài khoản đã tồn tại</string>
     <string name="register_blank_error">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="error_phone_length">Số điện thoại không hợp lệ</string>
     <string name="email_not_verify">Bạn chưa xác nhận Email. Hãy xác nhận Email để kích hoạt tài khoản của bạn</string>
     <string name="email_verified">Xác nhận Email thành công. Tài khoản của bạn đã được kích hoạt!</string>
     <string name="btn_send_verify">Gửi Xác Nhận</string>
