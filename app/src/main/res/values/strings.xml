@@ -2,10 +2,15 @@
     <string name="app_name">Halo</string>
     <string name="btn_login_text"> Login</string>
     <string name="btn_register_text"> Register</string>
+    <string name="btn_add_friend"> Add Friend</string>
+    <string name="btn_send_message"> Send Message</string>
+    <string name="btn_unfriend"> Unfriend</string>
+    <string name="btn_cancel_request"> Cancel request</string>
     <string name="title_login">Login</string>
     <string name="title_register">Register</string>
     <string name="title_forgetpass">Forget password</string>
     <string name="title_update_profile">Update Profile</string>
+    <string name="title_email_verify">Email Verification</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
     <string name="hint_displayname">Display name</string>
@@ -17,6 +22,7 @@
     <string name="hint_dob">Date of Birth</string>
     <string name="hint_gender">Gender</string>
     <string name="hint_forgetpass">Enter your Email address to recover password</string>
+    <string name="hint_search_friend">Search friends...</string>
     <string name="forget_password">Forgot your password?</string>
     <string name="male">Male</string>
     <string name="female">Female</string>

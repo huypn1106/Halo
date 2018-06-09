@@ -3,10 +3,15 @@
     <string name="app_name">Halo</string>
     <string name="btn_login_text"> Đăng nhập</string>
     <string name="btn_register_text"> Đăng ký</string>
+    <string name="btn_add_friend"> Thêm bạn</string>
+    <string name="btn_send_message"> Gửi tin nhắn</string>
+    <string name="btn_unfriend"> Xóa bạn</string>
+    <string name="btn_cancel_request"> Hủy yêu cầu</string>
     <string name="title_login">Đăng nhập</string>
     <string name="title_register">Đăng ký</string>
     <string name="title_forgetpass">Quên mật khẩu</string>
     <string name="title_update_profile">Cập nhật</string>
+    <string name="title_email_verify">Xác thực Email</string>
     <string name="hint_username">Tên tài khoản</string>
     <string name="hint_password">Mật khẩu</string>
     <string name="hint_displayname">Tên hiển thị</string>
@@ -17,6 +22,7 @@
     <string name="hint_login">Sử dụng tên tài khoản để đăng nhập</string>
     <string name="hint_phoneno">Số điện thoại</string>
     <string name="hint_register">Nhập thông tin của bạn để tạo tài khoản</string>
+    <string name="hint_search_friend">Tìm kiếm bạn bè...</string>
     <string name="forget_password">Bạn đã quên mật khẩu?</string>
     <string name="male">Nam</string>
     <string name="female">Nữ</string>

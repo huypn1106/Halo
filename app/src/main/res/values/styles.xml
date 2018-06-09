@@ -15,6 +15,7 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:colorControlNormal">#FFFFFF</item>
+        <item name="windowActionBarOverlay">true</item>
 
     </style>
 

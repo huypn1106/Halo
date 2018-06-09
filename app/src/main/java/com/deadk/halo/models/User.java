@@ -1,8 +1,10 @@
 package com.deadk.halo.models;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class User implements Serializable,Comparable {
 
     private String uid;
     private String username;
@@ -80,5 +82,12 @@ public class User implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        User compareUser = (User)o;
+        return this.getDisplayName().compareTo(((User) o).getDisplayName());
     }
 }

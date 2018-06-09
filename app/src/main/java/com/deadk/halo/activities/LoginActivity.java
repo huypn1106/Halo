@@ -75,8 +75,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Log.d("deadk","cac");
-
         ButterKnife.bind(this);
         Toolbar appbar = (Toolbar) findViewById(R.id.app_bar);
         appbar.setTitle(R.string.title_login);
