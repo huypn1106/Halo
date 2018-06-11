@@ -144,10 +144,9 @@ public class MainScreen extends AppCompatActivity {
                     getSupportActionBar().show();
 
                 if(tabId.equals("tabSetting")) {
-                    FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(MainScreen.this, MainActivity.class);
-                    startActivity(intent);
-                    MainScreen.this.finish();
+                   // FirebaseAuth.getInstance().signOut();
+                 //   Intent intent = new Intent(MainScreen.this, MainActivity.class);
+//                    MainScreen.this.finish();
                 }
 
                 if(tabId.equals("tabChat")) getSupportActionBar().setTitle(R.string.title_message);
