@@ -111,8 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("deadk", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, getString(R.string.authentication_failed), Toast.LENGTH_LONG).show();
                             dialog.dismiss();
                         //    updateUI(null);
                         }
@@ -216,33 +215,41 @@ public class LoginActivity extends AppCompatActivity {
 
         dialog.show();
 
-        if(!username.contains("@")){
-            DatabaseReference usernamesref = database.getReference("usernames");
+        if(etUsername.getText().toString().trim().equals("") || etPassword.getText().toString().trim().equals("")) {
 
-            Query phoneQuery = usernamesref.child(username).child("email");
-            phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+            Toast.makeText(LoginActivity.this, getString(R.string.register_blank_error), Toast.LENGTH_LONG).show();
+            dialog.dismiss();
 
-                    String email = dataSnapshot.getValue(String.class);
+        }
+        else {
+            if (!username.contains("@")) {
+                DatabaseReference usernamesref = database.getReference("usernames");
 
-                    if(email != null)
-                        signIn(email, password);
-                    else{
-                        dialog.dismiss();
-                        Toast.makeText(LoginActivity.this, "Authenticate Failed", Toast.LENGTH_SHORT).show();
+                Query phoneQuery = usernamesref.child(username).child("email");
+                phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        String email = dataSnapshot.getValue(String.class);
+
+                        if (email != null)
+                            signIn(email, password);
+                        else {
+                            dialog.dismiss();
+                            Toast.makeText(LoginActivity.this, getString(R.string.authentication_failed), Toast.LENGTH_LONG).show();
+                        }
+
                     }
 
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.e(MainActivity.TAG, "onCancelled", databaseError.toException());
-                    dialog.dismiss();
-                }
-            });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e(MainActivity.TAG, "onCancelled", databaseError.toException());
+                        dialog.dismiss();
+                    }
+                });
+            } else
+                signIn(username, password);
         }
-        else
-            signIn(username, password);
 
     }
 

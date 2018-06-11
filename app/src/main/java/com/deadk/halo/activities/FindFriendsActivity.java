@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -41,6 +42,8 @@ public class FindFriendsActivity extends AppCompatActivity {
  //   SearchView searchView;
  //   @BindView(R.id.listview_friends)
   //  ListView listViewFriends;
+
+
 
     FirebaseDatabase database = DataProvider.getInstance().getDatabase();
 

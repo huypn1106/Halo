@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -51,7 +54,7 @@ public class MainScreen extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Toolbar appbar = (Toolbar) findViewById(R.id.app_bar);
-        appbar.setTitle(R.string.title_login);
+        appbar.setTitle(R.string.title_message);
         setSupportActionBar(appbar);
 
         addControls();
@@ -71,6 +74,26 @@ public class MainScreen extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.search){
+            Intent intent = new Intent(MainScreen.this,FindFriendsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void addControls() {
 
         tabHost.setup();
@@ -88,7 +111,6 @@ public class MainScreen extends AppCompatActivity {
 
         TabHost.TabSpec tabChat = tabHost.newTabSpec("tabChat");
         tabChat.setIndicator("", getResources().getDrawable(R.drawable.ic_tab_chat));
-        Intent chatIntent = new Intent(this, ChatFragment.class);
         tabChat.setContent(R.id.chat_fragment);
 
         TabHost.TabSpec tabContact = tabHost.newTabSpec("tabContact");
@@ -127,6 +149,10 @@ public class MainScreen extends AppCompatActivity {
                     startActivity(intent);
                     MainScreen.this.finish();
                 }
+
+                if(tabId.equals("tabChat")) getSupportActionBar().setTitle(R.string.title_message);
+                else if (tabId.equals("tabContact")) getSupportActionBar().setTitle(R.string.title_contact);
+                else if (tabId.equals("tabSetting")) getSupportActionBar().setTitle(R.string.title_settings);
             }
         });
 

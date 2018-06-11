@@ -57,7 +57,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/background_border_button"
+        android:paddingVertical="15dp"
         android:text="@string/btn_send_verify"
+        android:textColor="@color/commomtext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />

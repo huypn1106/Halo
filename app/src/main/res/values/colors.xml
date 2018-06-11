@@ -9,4 +9,5 @@
     <color name="normalbackground">#F3F3F3</color>
     <color name="error">#e53935</color>
     <color name="success">#00c853</color>
+    <color name="commomtext">#FAFAFA</color>
 </resources>

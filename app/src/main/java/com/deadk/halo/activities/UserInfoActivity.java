@@ -1,6 +1,8 @@
 package com.deadk.halo.activities;
 
+import android.app.AlertDialog;
 import android.arch.core.util.Function;
+import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -80,6 +82,10 @@ public class UserInfoActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    DatabaseReference friendsReqRefForMainUser;
+    DatabaseReference friendsReqRef;
+    DatabaseReference friendsRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,39 +135,61 @@ public class UserInfoActivity extends AppCompatActivity {
 
     private void checkFriend(){
 
-        DatabaseReference friendsRef = database.getReference("friends/"+firebaseUser.getUid());
+
+        friendsRef = database.getReference("friends/"+firebaseUser.getUid());
 
         friendsRef.orderByChild("uid").equalTo(pickedUser.getUid())
-        .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if(dataSnapshot.exists())
-                {
-                    btnAddFriend.setVisibility(View.GONE);
-                    btnSendMessage.setVisibility(View.VISIBLE);
-                    btnUnfriend.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-        DatabaseReference friendsReqRef = database.getReference("friendrequests/"+pickedUser.getUid());
-
-        friendsReqRef.orderByChild("uid").equalTo(firebaseUser.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            btnCancleRequest.setVisibility(View.VISIBLE);
+
+                        if(dataSnapshot.exists())
+                        {
+                            btnSendMessage.setVisibility(View.VISIBLE);
+                            btnUnfriend.setVisibility(View.VISIBLE);
                         }
-                        else
-                            btnAddFriend.setVisibility(View.VISIBLE);
+                        else{
+
+                            friendsReqRef = database.getReference("friendrequests/"+pickedUser.getUid());
+
+                            friendsReqRef.orderByChild("uid").equalTo(firebaseUser.getUid())
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists()){
+                                                btnCancleRequest.setVisibility(View.VISIBLE);
+                                            }
+                                            else{
+
+                                                friendsReqRefForMainUser = database.getReference("friendrequests/"+firebaseUser.getUid());
+
+                                                friendsReqRefForMainUser.orderByChild("uid").equalTo(pickedUser.getUid())
+                                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                if(dataSnapshot.exists()){
+                                                                    tvReceiveRequest.setVisibility(View.VISIBLE);
+                                                                    layoutReceiveRequest.setVisibility(View.VISIBLE);
+                                                                }
+                                                                else
+                                                                    btnAddFriend.setVisibility(View.VISIBLE);
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                            }
+                                                        });
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                        }
                     }
 
                     @Override
@@ -169,29 +197,6 @@ public class UserInfoActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-
-        DatabaseReference friendsReqRefForMainUser = database.getReference("friendrequests/"+firebaseUser.getUid());
-
-        friendsReqRefForMainUser.orderByChild("uid").equalTo(pickedUser.getUid())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            btnAddFriend.setVisibility(View.GONE);
-                            tvReceiveRequest.setVisibility(View.VISIBLE);
-                            layoutReceiveRequest.setVisibility(View.VISIBLE);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-
 
     }
 
@@ -224,6 +229,231 @@ public class UserInfoActivity extends AppCompatActivity {
                 });
 
         btnAddFriend.setVisibility(View.GONE);
+
+    }
+
+
+    @OnClick(R.id.btn_unfriend)
+    void unfriend(){
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:{
+
+                        friendsRef = database.getReference("friends/"+firebaseUser.getUid());
+
+                        DatabaseReference pickedFriendRef = database.getReference("friends/"+pickedUser.getUid());
+
+                        friendsRef.orderByChild("uid").equalTo(pickedUser.getUid())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                                            if (data.child("uid").getValue(String.class).equals(pickedUser.getUid())) {
+                                                data.getRef().removeValue();
+
+                                                btnSendMessage.setVisibility(View.GONE);
+                                                btnUnfriend.setVisibility(View.GONE);
+                                                btnAddFriend.setVisibility(View.VISIBLE);
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                        pickedFriendRef.orderByChild("uid").equalTo(firebaseUser.getUid())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                                            if (data.child("uid").getValue(String.class).equals(firebaseUser.getUid())) {
+                                                data.getRef().removeValue();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                    }
+                    break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.confirm)).setPositiveButton(getString(R.string.yes), dialogClickListener)
+                .setNegativeButton(getString(R.string.no), dialogClickListener).show();
+
+
+    }
+
+    @OnClick(R.id.btn_cancel_request)
+    void cancelRequest(){
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:{
+
+                        friendsReqRef = database.getReference("friendrequests/"+pickedUser.getUid());
+
+                        friendsReqRef.orderByChild("uid").equalTo(firebaseUser.getUid())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                                            if (data.child("uid").getValue(String.class).equals(pickedUser.getUid())) {
+                                                data.getRef().removeValue();
+
+                                                btnCancleRequest.setVisibility(View.GONE);
+                                                btnAddFriend.setVisibility(View.VISIBLE);
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                    }
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.confirm)).setPositiveButton(getString(R.string.yes), dialogClickListener)
+                .setNegativeButton(getString(R.string.no), dialogClickListener).show();
+
+
+
+    }
+
+    @OnClick(R.id.btn_accept)
+    void acceptRequest(){
+
+        friendsReqRefForMainUser = database.getReference("friendrequests/"+firebaseUser.getUid());
+
+        friendsReqRefForMainUser.orderByChild("uid").equalTo(pickedUser.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+
+                            FriendRequest friendRequest = dataSnapshot.getChildren().iterator().next().getValue(FriendRequest.class);
+                            FriendRequest pickedFriendRequest = new FriendRequest(firebaseUser.getUid(), new Date());
+
+                            DatabaseReference friendsRefMainUser = database.getReference("friends/" + firebaseUser.getUid());
+                            DatabaseReference friendsRefPickedUser = database.getReference("friends/" + pickedUser.getUid());
+
+
+                            friendsRefMainUser.push().setValue(friendRequest);
+                            friendsRefPickedUser.push().setValue(pickedFriendRequest);
+
+                            friendsReqRefForMainUser.orderByChild("uid").equalTo(pickedUser.getUid())
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                            for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                                                if (data.child("uid").getValue(String.class).equals(pickedUser.getUid())) {
+                                                    data.getRef().removeValue();
+
+                                                    tvReceiveRequest.setVisibility(View.GONE);
+                                                    layoutReceiveRequest.setVisibility(View.GONE);
+                                                    btnSendMessage.setVisibility(View.VISIBLE);
+                                                    btnUnfriend.setVisibility(View.VISIBLE);
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    @OnClick(R.id.btn_reject)
+    void rejectRequest(){
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:{
+
+                        friendsReqRefForMainUser.orderByChild("uid").equalTo(pickedUser.getUid())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for(DataSnapshot data:dataSnapshot.getChildren()) {
+
+                                            if(data.child("uid").getValue(String.class).equals(pickedUser.getUid())) {
+                                                data.getRef().removeValue();
+
+                                                tvReceiveRequest.setVisibility(View.GONE);
+                                                layoutReceiveRequest.setVisibility(View.GONE);
+                                                btnAddFriend.setVisibility(View.VISIBLE);
+                                            }
+
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                    }
+                    break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.confirm)).setPositiveButton(getString(R.string.yes), dialogClickListener)
+                .setNegativeButton(getString(R.string.no), dialogClickListener).show();
 
     }
 

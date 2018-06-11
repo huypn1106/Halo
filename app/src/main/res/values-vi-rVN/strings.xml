@@ -11,7 +11,13 @@
     <string name="title_register">Đăng ký</string>
     <string name="title_forgetpass">Quên mật khẩu</string>
     <string name="title_update_profile">Cập nhật</string>
+    <string name="title_message">Tin nhắn</string>
+    <string name="title_contact">Danh sách bạn</string>
+    <string name="title_settings">Cài đặt</string>
     <string name="title_email_verify">Xác thực Email</string>
+    <string name="confirm">Bạn có chắc?</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
     <string name="hint_username">Tên tài khoản</string>
     <string name="hint_password">Mật khẩu</string>
     <string name="hint_displayname">Tên hiển thị</string>
@@ -19,7 +25,7 @@
     <string name="hint_confirmpass">Nhập lại mật khẩu</string>
     <string name="hint_dob">Ngày sinh</string>
     <string name="hint_gender">Giới tính</string>
-    <string name="hint_login">Sử dụng tên tài khoản để đăng nhập</string>
+    <string name="hint_login">Sử dụng tên tài khoản hoặc Email để đăng nhập</string>
     <string name="hint_phoneno">Số điện thoại</string>
     <string name="hint_register">Nhập thông tin của bạn để tạo tài khoản</string>
     <string name="hint_search_friend">Tìm kiếm bạn bè...</string>
@@ -42,6 +48,7 @@
     <string name="error_phone_length">Số điện thoại không hợp lệ</string>
     <string name="email_not_verify">Bạn chưa xác nhận Email. Hãy xác nhận Email để kích hoạt tài khoản của bạn</string>
     <string name="email_verified">Xác nhận Email thành công. Tài khoản của bạn đã được kích hoạt!</string>
+    <string name="authentication_failed">Đăng nhập thất bại, sai tên tài khoản hoặc mật khẩu</string>
     <string name="btn_send_verify">Gửi Xác Nhận</string>
     <string name="signing_up">Đang đăng ký...</string>
     <string name="signing_in">Đang đăng nhập...</string>

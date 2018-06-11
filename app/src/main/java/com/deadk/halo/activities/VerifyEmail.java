@@ -1,11 +1,14 @@
 package com.deadk.halo.activities;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deadk.halo.R;
+import com.deadk.halo.ultilities.LocaleHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,8 +49,19 @@ public class VerifyEmail extends AppCompatActivity {
         setContentView(R.layout.activity_verify_email);
 
         ButterKnife.bind(this);
+
+        Toolbar appbar = (Toolbar) findViewById(R.id.app_bar);
+        appbar.setTitle(R.string.title_email_verify);
+        setSupportActionBar(appbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase));
+    }
 
     void autoRefreshStatus(){
 
